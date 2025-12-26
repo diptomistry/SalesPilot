@@ -3,7 +3,7 @@ import asyncio
 from fastapi import FastAPI, HTTPException
 from typing import List
 from app.config import settings
-from app.models import Lead
+from app.models import Lead, Priority
 from app.services.csv_service import CSVService
 from app.services.llm_service import LLMService
 from app.services.lead_scoring import LeadScoringService
@@ -99,6 +99,8 @@ async def process_campaign():
         
         # Process each lead
         processed_leads = []
+        high_priority_count = 0
+        
         for lead_data in leads_data:
             if not lead_data.get("email"):
                 continue  # Skip leads without email
@@ -106,9 +108,18 @@ async def process_campaign():
             try:
                 lead = await process_lead(lead_data)
                 processed_leads.append(lead)
+                
+                # Track and log high priority leads
+                if lead.priority == Priority.HIGH:
+                    high_priority_count += 1
+                    print(f"🚨 HIGH PRIORITY LEAD: {lead.name} ({lead.company}) - Score: {lead.score} - Persona: {lead.persona}")
             except Exception as e:
                 print(f"Error processing lead {lead_data.get('email', 'unknown')}: {str(e)}")
                 continue
+        
+        # Log summary
+        if high_priority_count > 0:
+            print(f"\n📊 Campaign Summary: {high_priority_count} high-priority lead(s) identified and processed with enhanced email templates.")
         
         # Write updated leads back to CSV
         csv_service.write_leads(processed_leads)
@@ -132,6 +143,24 @@ async def get_leads():
     try:
         leads_data = csv_service.read_leads()
         return {"leads": leads_data, "count": len(leads_data)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error reading leads: {str(e)}")
+
+
+@app.get("/leads/high-priority")
+async def get_high_priority_leads():
+    """Get all high-priority leads from CSV."""
+    try:
+        leads_data = csv_service.read_leads()
+        high_priority_leads = [
+            lead for lead in leads_data 
+            if lead.get("priority", "").lower() == "high"
+        ]
+        return {
+            "high_priority_leads": high_priority_leads,
+            "count": len(high_priority_leads),
+            "message": f"Found {len(high_priority_leads)} high-priority lead(s) requiring immediate attention."
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error reading leads: {str(e)}")
 

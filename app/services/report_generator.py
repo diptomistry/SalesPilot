@@ -76,11 +76,17 @@ class ReportGenerator:
             ai_summary = f"Campaign processed {stats['total']} leads with an average score of {stats['average_score']:.2f}."
         
         # Generate markdown report
+        total = stats['total']
+        # Avoid division by zero
+        high_pct = (stats['high_priority']/total*100) if total > 0 else 0.0
+        medium_pct = (stats['medium_priority']/total*100) if total > 0 else 0.0
+        low_pct = (stats['low_priority']/total*100) if total > 0 else 0.0
+        
         report_content = f"""# Campaign Summary Report
 
 ## Overview
 
-**Total Leads Processed:** {stats['total']}
+**Total Leads Processed:** {total}
 
 **Average Lead Score:** {stats['average_score']:.2f}/10
 
@@ -88,9 +94,9 @@ class ReportGenerator:
 
 ## Priority Breakdown
 
-- **High Priority:** {stats['high_priority']} leads ({stats['high_priority']/stats['total']*100:.1f}%)
-- **Medium Priority:** {stats['medium_priority']} leads ({stats['medium_priority']/stats['total']*100:.1f}%)
-- **Low Priority:** {stats['low_priority']} leads ({stats['low_priority']/stats['total']*100:.1f}%)
+- **High Priority:** {stats['high_priority']} leads ({high_pct:.1f}%)
+- **Medium Priority:** {stats['medium_priority']} leads ({medium_pct:.1f}%)
+- **Low Priority:** {stats['low_priority']} leads ({low_pct:.1f}%)
 
 ---
 
@@ -99,14 +105,14 @@ class ReportGenerator:
 """
         
         for persona, count in sorted(stats['persona_distribution'].items(), key=lambda x: x[1], reverse=True):
-            percentage = (count / stats['total']) * 100
+            percentage = (count / total * 100) if total > 0 else 0.0
             report_content += f"- **{persona}:** {count} leads ({percentage:.1f}%)\n"
         
         report_content += "\n---\n\n## Response Classification\n\n"
         
         for status, count in stats['response_breakdown'].items():
             if count > 0:
-                percentage = (count / stats['total']) * 100
+                percentage = (count / total * 100) if total > 0 else 0.0
                 report_content += f"- **{status}:** {count} leads ({percentage:.1f}%)\n"
         
         report_content += f"\n---\n\n## AI-Generated Summary\n\n{ai_summary}\n\n---\n\n*Report generated automatically by AI Sales CRM*\n"

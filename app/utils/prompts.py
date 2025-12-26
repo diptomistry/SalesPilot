@@ -80,8 +80,9 @@ Lead Information:
 - Industry: {industry}
 - Job Title: {job_title}
 - Persona: {persona}
-- Score: {score}
+- Score: {score}/10
 - Priority: {priority}
+- High Priority: {is_high_priority}
 
 Requirements:
 - Professional, friendly, and sales-oriented tone
@@ -89,6 +90,18 @@ Requirements:
 - Clear value proposition
 - Call-to-action
 - Keep email body under 150 words
+
+Special Instructions for High Priority Leads (Priority = High, Score 8+):
+- Use more direct, executive-level language
+- Emphasize strategic value and ROI
+- Reference their decision-making authority
+- Be concise and respect their time
+- Use a more confident, value-driven tone
+
+For Medium/Low Priority Leads:
+- Use a more consultative, nurturing approach
+- Focus on relationship building
+- Provide more context and education
 
 Respond in JSON format only:
 {{
