@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: ai-sales-crm-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - SMTP_HOST=mailhog
+      - SMTP_PORT=1025
+      - CSV_FILE_PATH=/app/data/leads.csv
+      - REPORTS_DIR=/app/reports
+    depends_on:
+      - mailhog
+    command: >
+      sh -c "
+        echo 'Starting FastAPI server...' &&
+        uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+        sleep 5 &&
+        echo 'Waiting for API to be ready...' &&
+        until curl -f http://localhost:8000/health > /dev/null 2>&1; do
+          sleep 1
+        done &&
+        echo 'Processing campaign...' &&
+        curl -X POST http://localhost:8000/campaign/process &&
+        echo '' &&
+        echo 'Campaign processing complete!' &&
+        echo 'API: http://localhost:8000' &&
+        echo 'MailHog: http://localhost:8025' &&
+        tail -f /dev/null
+      "
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: ai-sales-crm-mailhog
+    ports:
+      - "8025:8025"  # Web UI
+      - "1025:1025"  # SMTP
+

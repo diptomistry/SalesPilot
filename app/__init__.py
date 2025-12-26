@@ -1,0 +1,2 @@
+"""AI Sales CRM application."""
+
