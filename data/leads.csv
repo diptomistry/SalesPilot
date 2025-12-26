@@ -1,22 +1,22 @@
 name,email,company,industry,job_title,status
 John Smith,john.smith@techcorp.com,TechCorp,Technology,CEO,Active
-Sarah Johnson,sarah.j@marketingpro.com,Marketing Pro,Marketing,Marketing Director,Active
-Michael Chen,mchen@startup.io,StartupIO,Technology,CTO,Active
+Sarah Johnson,sarah.j@marketingpro.com,Marketing Pro,,Marketing Director,Active
+Michael Chen,mchen@startup.io,StartupIO,Technology,,Active
 Emily Davis,emily.davis@retailco.com,RetailCo,Retail,Operations Manager,Active
-David Wilson,dwilson@financegroup.com,Finance Group,Finance,CFO,Active
-Lisa Anderson,lisa.anderson@healthcare.com,HealthCare Plus,Healthcare,HR Director,Active
-Robert Brown,robert.brown@manufacturing.com,Manufacturing Inc,Manufacturing,Operations Manager,Active
-Jennifer Lee,jlee@consulting.com,Consulting Partners,Consulting,Partner,Active
+David Wilson,dwilson@financegroup.com,Finance Group,,CFO,Active
+Lisa Anderson,lisa.anderson@healthcare.com,,Healthcare,HR Director,Active
+Robert Brown,robert.brown@manufacturing.com,Manufacturing Inc,Manufacturing,,Active
+Jennifer Lee,jlee@consulting.com,Consulting Partners,,Partner,Active
 William Taylor,wtaylor@education.com,Education First,Education,Director,Active
-Amanda Martinez,amartinez@realestate.com,Real Estate Pro,Real Estate,Sales Manager,Active
-Christopher White,cwhite@logistics.com,Logistics Solutions,Logistics,VP Operations,Active
-Jessica Harris,jharris@foodservice.com,Food Service Co,Food Service,General Manager,Active
-Matthew Clark,mclark@energy.com,Energy Solutions,Energy,Project Manager,Active
-Ashley Lewis,alewis@hospitality.com,Hospitality Group,Hospitality,Operations Director,Active
-Daniel Walker,dwalker@construction.com,Construction Ltd,Construction,Project Manager,Active
-Michelle Hall,mhall@automotive.com,Auto Solutions,Automotive,Sales Director,Active
-James Allen,jallen@telecom.com,Telecom Services,Telecommunications,Technical Director,Active
-Nicole Young,nyoung@pharmaceutical.com,Pharma Corp,Pharmaceutical,Research Director,Active
-Kevin King,kking@aerospace.com,Aerospace Systems,Aerospace,Engineering Manager,Active
-Rachel Green,rgreen@ecommerce.com,E-Commerce Plus,E-Commerce,Product Manager,Active
+Amanda Martinez,amartinez@realestate.com,,Real Estate,Sales Manager,Active
+Christopher White,cwhite@logistics.com,Logistics Solutions,,VP Operations,Active
+Jessica Harris,jharris@foodservice.com,Food Service Co,Food Service,,Active
+Matthew Clark,mclark@energy.com,Energy Solutions,,Project Manager,Active
+Ashley Lewis,alewis@hospitality.com,Hospitality Group,Hospitality,,Active
+Daniel Walker,dwalker@construction.com,Construction Ltd,,Project Manager,Active
+Michelle Hall,mhall@automotive.com,,Automotive,Sales Director,Active
+James Allen,jallen@telecom.com,Telecom Services,Telecommunications,,Active
+Nicole Young,nyoung@pharmaceutical.com,Pharma Corp,,Research Director,Active
+Kevin King,kking@aerospace.com,,Aerospace,Engineering Manager,Active
+Rachel Green,rgreen@ecommerce.com,E-Commerce Plus,E-Commerce,,Active
 
